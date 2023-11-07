@@ -38,9 +38,10 @@ jobs:
               with:
                 name: out-afa
                 path: |
-                  package.json
-                  index.html
-                  src
+                    package*
+                    !package.json
+                    index.html
+                    src
     build:
         runs-on: ubuntu-latest
         needs: [test]
