@@ -38,8 +38,7 @@ jobs:
               with:
                 name: out-afa
                 path: |
-                  package*
-                  !package-lock.json
+                  package.json
                   index.html
                   src
     build:
