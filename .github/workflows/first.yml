@@ -70,7 +70,7 @@ jobs:
                 name: out-afa
 
             - name: Print output
-              run: echo "Zmienna: ${{ needs.test.outputs.testout }}"
+              run: echo "${{ needs.test.outputs.testout }}"
 
             - name: List all files
               run: | 
