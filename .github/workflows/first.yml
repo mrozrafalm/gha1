@@ -1,7 +1,7 @@
 name: First workflow
 on:
     push:
-        branches: ["test"]
+        branches: ["test", "main"]
     issue_comment: 
         types: [edited,deleted]
     issues:
