@@ -25,6 +25,7 @@ jobs:
         # needs: [lint]
         outputs:
           testout: ${{ steps.tOut.outputs.tOut }}
+          files: ${{ steps.list.outputs.sFiles }}
         steps:
             - name: Get repo
               uses: actions/checkout@v4
@@ -36,7 +37,10 @@ jobs:
             #   run: npm run test
 
             - name: List files
-              run: ls -al
+              id: list
+              run: |
+                LSFILES=$(ls package.json)
+                echo "sFiles=$LSFILES" >> $GITHUB_OUTPUT
 
             - name: Output artifacts
               uses: actions/upload-artifact@v3
@@ -72,6 +76,7 @@ jobs:
             - name: Print output
               run: |
                 echo "Zmienna: ${{ needs.test.outputs.testout }}"
+                echo "Pliczek: ${{ needs.test.outputs.files }}"
 
             - name: List all files
               run: | 
