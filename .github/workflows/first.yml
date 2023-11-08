@@ -71,8 +71,7 @@ jobs:
 
             - name: Print output
               run: |
-                ENV1=$(echo "${{ needs.test.outputs.testout }}")
-                echo "Zmienna: $ENV1"
+                echo "Zmienna: ${{ needs.test.outputs.testout }}"
 
             - name: List all files
               run: | 
