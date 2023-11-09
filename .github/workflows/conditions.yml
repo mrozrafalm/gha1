@@ -6,24 +6,28 @@ on:
 jobs:
   init:
     runs-on: ubuntu-latest
+    outputs:
+      naming: ${{ steps.stepfail.outputs.runid}}
     steps:
       - name: Wait a second
         run: |
-          sleep 15
+          sleep 30
       
       - name: Fail me
         # continue-on-error: true
         id: stepfail
         run: |
+          echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
+          echo "${{ toJson(github) }}"
           exit 1
 
       - name: Even continue-on-error
-        if: ${{ steps.stepfail.outcome == 'failed' }}
+        if: ${{ failure() && steps.stepfail.outcome == 'failed' }}
         run: |
           echo "Step failed"
 
       - name: If failed
-        if: ${{ steps.stepfail.conclusion == 'failed' }}
+        if: ${{ failure() && steps.stepfail.conclusion == 'failed' }}
         run: |
           echo "Step failed"
 
@@ -43,4 +47,4 @@ jobs:
     steps:
       - name: Print out
         run: |
-          echo "Init job had failed steps"
+          echo "Init job had failed steps - ${{ needs.init.outputs.naming }}"
