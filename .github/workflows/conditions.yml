@@ -22,13 +22,10 @@ jobs:
           echo "ENVENV: ${{ vars.ENVENV }}"
       
       - name: Fail me
-        continue-on-error: true
         id: stepfail
         run: |
           echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
           echo "${{ toJson(github) }}"
-          exit 1
-          /bin.asha
 
       - name: Fail this also
         continue-on-error: true
