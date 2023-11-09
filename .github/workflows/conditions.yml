@@ -28,7 +28,7 @@ jobs:
           echo "${{ toJson(github) }}"
 
       - name: Fail this also
-        continue-on-error: true
+        # continue-on-error: true
         id: otherfail
         run: exit 24
         
