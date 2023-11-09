@@ -6,22 +6,22 @@ on:
 jobs:
   init:
     runs-on: ubuntu-latest
-    outputs:
-      naming: ${{ steps.stepfail.outputs.runid}}
+    # outputs:
+    #   naming: ${{ steps.stepfail.outputs.runid}}
     steps:
       - name: Wait a second
         run: |
-          sleep 30
+          sleep 5
 
       - name: Reveal secrets
         run: |
-
+          echo "${{ secrets. }}"
       
       - name: Fail me
         continue-on-error: true
         id: stepfail
         run: |
-          echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
+          # echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
           # echo "${{ toJson(github) }}"
           # exit 1
           /bin.asha
@@ -53,4 +53,4 @@ jobs:
       - name: Print out
         run: |
           echo "Init job had failed steps"
-          echo "${{ needs.init.outputs.naming }}"
+          # echo "${{ needs.init.outputs.naming }}"
