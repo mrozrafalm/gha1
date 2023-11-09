@@ -7,14 +7,14 @@ jobs:
   thisismatrix:
     strategy:
       matrix:
-        nodes: ['12', '16', '18']
-        os: ['ubuntu-latest', 'windows-latest']
+        nodes: [12, 16, 18]
+        os: [ubuntu-latest, windows-latest]
         include:
-          - nodes: '14'
-            npm: 'yes'
+          - nodes: 14
+            npm: true
         exclude:
-          - nodes: '12'
-            os: 'ubuntu-latest'
+          - nodes: 12
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     steps:
       - name: Deploy stuff
@@ -22,7 +22,7 @@ jobs:
          echo "OS: ${{ matrix.os }}"
          echo "NodeJS: ${{ matrix.nodes }}"
       - name: Conditional
-        if: ${{ matrix.npm == 'yes' }}
+        if: ${{ matrix.npm == true }}
         run: |
           echo "OS: ${{ matrix.os }}"
           echo "NodeJS: ${{ matrix.nodes }}"
