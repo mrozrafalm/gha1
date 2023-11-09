@@ -15,7 +15,10 @@ jobs:
 
       - name: Reveal secrets
         run: |
-          echo "${{ secrets. }}"
+          echo "REPOSECRET: ${{ secrets.REPOSECRET }}"
+          echo "ENVSECRET: ${{ secrets.ENVSECRET }}"
+          echo "REPOENV: ${{ env.REPOENV }}"
+          echo "ENVENV: ${{ env.ENVENV }}"
       
       - name: Fail me
         continue-on-error: true
