@@ -33,12 +33,12 @@ jobs:
         run: exit 24
         
       - name: Even continue-on-error
-        if: ${{ steps.otherfail.outcome == 'failure' }}
+        if: ${{ failure() && steps.otherfail.outcome == 'failure' }}
         run: |
           echo "Step failed"
 
       - name: If failed
-        if: ${{ steps.otherfail.conclusion == 'failure' }}
+        if: ${{ failure() && steps.otherfail.conclusion == 'failure' }}
         run: |
           echo "Step failed"
 
