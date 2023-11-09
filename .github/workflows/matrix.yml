@@ -1,13 +1,17 @@
-name: Test matrix
-on: push
-
+name: Matrix runs
+on:
+  push:
+    branches:
+      - main
 jobs:
-  build:
+  deploy:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        nodejs: [12, 16, 18]
         os: [ubuntu-latest, windows-latest]
-        node: [14, 16]
     steps:
-      - run: |
-          echo ${{ matrix.node }}
+      - name: Deploy stuff
+        run: |
+         echo "OS: ${{ matrix.os }}"
+         echo "NodeJS: ${{ matrix.nodejs }}"
