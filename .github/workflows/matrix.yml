@@ -10,6 +10,12 @@ jobs:
       matrix:
         nodejs: [12, 16, 18]
         os: [ubuntu-latest, windows-latest]
+        exclude:
+          - nodejs: 12
+            os: ubuntu-latest
+        include:
+          - nodejs: 14
+            npm: true
     steps:
       - name: Deploy stuff
         run: |
