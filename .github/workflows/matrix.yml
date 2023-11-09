@@ -5,9 +5,10 @@ on:
       - main
 jobs:
   thisismatrix:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        nodes: [12, 16, 18]
+        nodejs: [12, 16, 18]
         os: [ubuntu-latest, windows-latest]
         include:
           - nodes: 14
@@ -15,15 +16,14 @@ jobs:
         exclude:
           - nodes: 12
             os: ubuntu-latest
-    runs-on: ${{ matrix.os }}
     steps:
       - name: Deploy stuff
         run: |
          echo "OS: ${{ matrix.os }}"
-         echo "NodeJS: ${{ matrix.nodes }}"
+         echo "NodeJS: ${{ matrix.nodejs }}"
       - name: Conditional
         if: ${{ matrix.npm == true }}
         run: |
           echo "OS: ${{ matrix.os }}"
-          echo "NodeJS: ${{ matrix.nodes }}"
+          echo "NodeJS: ${{ matrix.nodejs }}"
           echo "NPM: ${{ matrix.npm }}"
