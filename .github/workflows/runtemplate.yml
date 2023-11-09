@@ -11,7 +11,7 @@ jobs:
       bInput: true
       sInput: "ThisInputValue"
     secrets: 
-      sSecret: ${{ secrets.REPOENV }}
+      sSecret: ${{ secrets.REPOSECRET }}
   print-something:
     runs-on: ubuntu-latest
     needs: [use-template]
@@ -19,4 +19,4 @@ jobs:
       - name: Print output
         run: |
           echo "Template output: ${{ needs.use-template.outputs.sOutput }}"
-          echo "sSecret: ${{ secrets.REPOENV }}"
+          echo "sSecret: ${{ secrets.REPOSECRET }}"
