@@ -22,8 +22,9 @@ jobs:
         id: stepfail
         run: |
           echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
-          echo "${{ toJson(github) }}"
-          exit 1
+          # echo "${{ toJson(github) }}"
+          # exit 1
+          /bin.asha
 
       - name: Even continue-on-error
         if: ${{ steps.stepfail.outcome == 'failure' }}
