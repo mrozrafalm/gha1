@@ -6,8 +6,8 @@ on:
 jobs:
   init:
     runs-on: ubuntu-latest
-    # outputs:
-    #   naming: ${{ steps.stepfail.outputs.runid}}
+    outputs:
+      naming: ${{ steps.stepfail.outputs.runid}}
     steps:
       - name: Wait a second
         run: |
@@ -17,25 +17,29 @@ jobs:
         run: |
           echo "REPOSECRET: ${{ secrets.REPOSECRET }}"
           echo "ENVSECRET: ${{ secrets.ENVSECRET }}"
-          echo "REPOENV: ${{ env.REPOENV }}"
-          echo "ENVENV: ${{ env.ENVENV }}"
+          echo "REPOENV: ${{ vars.REPOENV }}"
+          echo "ENVENV: ${{ vars.ENVENV }}"
       
       - name: Fail me
         continue-on-error: true
         id: stepfail
         run: |
-          # echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
-          # echo "${{ toJson(github) }}"
-          # exit 1
+          echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
+          echo "${{ toJson(github) }}"
+          exit 1
           /bin.asha
 
+      - name: Fail this also
+        id: otherfail
+        run: exit 24
+        
       - name: Even continue-on-error
-        if: ${{ steps.stepfail.outcome == 'failure' }}
+        if: ${{ steps.otherfail.outcome == 'failure' }}
         run: |
           echo "Step failed"
 
       - name: If failed
-        if: ${{ steps.stepfail.conclusion == 'failure' }}
+        if: ${{ steps.otherfail.conclusion == 'failure' }}
         run: |
           echo "Step failed"
 
@@ -56,4 +60,4 @@ jobs:
       - name: Print out
         run: |
           echo "Init job had failed steps"
-          # echo "${{ needs.init.outputs.naming }}"
+          echo "${{ needs.init.outputs.naming }}"
