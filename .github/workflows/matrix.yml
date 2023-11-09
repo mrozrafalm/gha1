@@ -13,6 +13,8 @@ jobs:
         exclude:
           - nodejs: 12
             os: ubuntu-latest
+        include:
+          - nodejs: 14
     steps:
       - name: Deploy stuff
         run: |
