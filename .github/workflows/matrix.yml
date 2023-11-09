@@ -15,8 +15,16 @@ jobs:
             os: ubuntu-latest
         include:
           - nodejs: 14
+            os: ubuntu-latest
+            npm: true
     steps:
       - name: Deploy stuff
         run: |
          echo "OS: ${{ matrix.os }}"
          echo "NodeJS: ${{ matrix.nodejs }}"
+      - name: Conditional
+        if: ${{ matrix.npm == "true" }}
+        run: |
+        echo "OS: ${{ matrix.os }}"
+        echo "NodeJS: ${{ matrix.nodejs }}"
+        echo "NPM: ${{ matrix.npm }}"
