@@ -25,6 +25,6 @@ jobs:
       - name: Conditional
         if: ${{ matrix.npm == "true" }}
         run: |
-        echo "OS: ${{ matrix.os }}"
-        echo "NodeJS: ${{ matrix.nodejs }}"
-        echo "NPM: ${{ matrix.npm }}"
+          echo "OS: ${{ matrix.os }}"
+          echo "NodeJS: ${{ matrix.nodejs }}"
+          echo "NPM: ${{ matrix.npm }}"
