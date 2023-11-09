@@ -1,0 +1,54 @@
+name: Usable template
+on:
+  workflow_call: 
+    inputs:
+      sInput:
+        description: String input
+        required: false
+        default: "StringValue"
+        type: string
+      bInput:
+        description: Bool input
+        required: true
+        type: boolean
+    outputs:
+      sOutput:
+        description: String output
+        value: ${{ jobs.final.outputs.sFinalOutput }}
+    secrets:
+      sSecret:
+        description: Secret string input
+        required: true
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    outputs:
+      sInitOutput: ${{ steps.finish-run.outputs.finish-output}}
+    steps:
+      - name: Init run
+        id: init-run
+        run: |
+          echo "init-output=${{ toJson(github.run_id) }}" >> $GITHUB_OUTPUT
+      
+      - name: Finish init
+        id: finish-run
+        run: |
+          echo "finish-output=${{ steps.init-run.outputs.init-output }}"
+
+  final:
+    runs-on: ubuntu-latest
+    needs: [init]
+    outputs:
+      sFinalOutput: ${{ steps.finish-output.outputs.finish-output }}
+    steps:
+      - name: Finishing step
+        id: finish-output
+        run: |
+          echo "final-output=${{ needs.init.outputs.sInitOutput }}" >> $GITHUB_OUTPUT
+
+      - name: Print input info
+        run: |
+          echo "sInput: ${{ inputs.sInput }}"
+          echo "bInput: ${{ inputs.bInput }}"
+          echo "sSeccret: ${{ secrets.sSecret }}"

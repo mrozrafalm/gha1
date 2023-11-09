@@ -1,0 +1,21 @@
+name: Run using template
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  use-template:
+    uses: ./.github/workflows/useme.yml
+    with:
+      bInput: true
+      sInput: "ThisInputValue"
+    secrets: 
+      sSecret: ${{ secrets.REPOENV }}
+  print-something:
+    runs-on: ubuntu-latest
+    needs: [use-template]
+    steps:
+      - name: Print output
+        run: |
+          echo "Template output: ${{ needs.use-template.outputs.sOutput }}"
