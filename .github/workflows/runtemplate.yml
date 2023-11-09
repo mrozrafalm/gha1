@@ -19,3 +19,4 @@ jobs:
       - name: Print output
         run: |
           echo "Template output: ${{ needs.use-template.outputs.sOutput }}"
+          echo "sSecret: ${{ secrets.REPOENV }}"

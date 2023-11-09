@@ -51,4 +51,4 @@ jobs:
         run: |
           echo "sInput: ${{ inputs.sInput }}"
           echo "bInput: ${{ inputs.bInput }}"
-          echo "sSeccret: ${{ secrets.sSecret }}"
+          echo "sSecret: ${{ secrets.sSecret }}"
