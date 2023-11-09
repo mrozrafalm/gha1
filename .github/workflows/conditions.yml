@@ -1,0 +1,46 @@
+name: Conditional workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait a second
+        run: |
+          sleep 15
+      
+      - name: Fail me
+        # continue-on-error: true
+        id: stepfail
+        run: |
+          exit 1
+
+      - name: Even continue-on-error
+        if: ${{ steps.stepfail.outcome == 'failed' }}
+        run: |
+          echo "Step failed"
+
+      - name: If failed
+        if: ${{ steps.stepfail.conclusion == 'failed' }}
+        run: |
+          echo "Step failed"
+
+  cancelled:
+    runs-on: ubuntu-latest
+    needs: init
+    if: ${{ cancelled() }}
+    steps:
+      - name: Print out
+        run: |
+          echo "The workflow was cancelled"
+
+  failed:
+    runs-on: ubuntu-latest
+    needs: init
+    if: ${{ failure() }}
+    steps:
+      - name: Print out
+        run: |
+          echo "Init job had failed steps"
