@@ -34,7 +34,7 @@ jobs:
       - name: Finish init
         id: finish-run
         run: |
-          echo "finish-output=${{ steps.init-run.outputs.init-output }}"
+          echo "finish-output=${{ steps.init-run.outputs.init-output }}" >> $GITHUB_OUTPUT
 
   final:
     runs-on: ubuntu-latest
