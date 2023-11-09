@@ -1,29 +1,13 @@
-name: Matrix runs
-on:
-  push:
-    branches:
-      - main
+name: Test matrix
+on: push
+
 jobs:
-  thisismatrix:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        nodejs: [12, 16, 18]
         os: [ubuntu-latest, windows-latest]
-        include:
-          - nodejs: 14
-            npm: true
-        exclude:
-          - nodejs: 12
-            os: ubuntu-latest
+        node: [14, 16]
     steps:
-      - name: Deploy stuff
-        run: |
-         echo "OS: ${{ matrix.os }}"
-         echo "NodeJS: ${{ matrix.nodejs }}"
-      - name: Conditional
-        if: ${{ matrix.npm == true }}
-        run: |
-          echo "OS: ${{ matrix.os }}"
-          echo "NodeJS: ${{ matrix.nodejs }}"
-          echo "NPM: ${{ matrix.npm }}"
+      - run: |
+          echo ${{ matrix.node }}
