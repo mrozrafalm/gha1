@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   init:
+    environment: DEV
     runs-on: ubuntu-latest
     outputs:
       naming: ${{ steps.stepfail.outputs.runid}}
@@ -21,7 +22,7 @@ jobs:
           echo "ENVENV: ${{ vars.ENVENV }}"
       
       - name: Fail me
-        # continue-on-error: true
+        continue-on-error: true
         id: stepfail
         run: |
           echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
@@ -30,6 +31,7 @@ jobs:
           /bin.asha
 
       - name: Fail this also
+        continue-on-error: true
         id: otherfail
         run: exit 24
         
