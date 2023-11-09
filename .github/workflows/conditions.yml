@@ -12,9 +12,13 @@ jobs:
       - name: Wait a second
         run: |
           sleep 30
+
+      - name: Reveal secrets
+        run: |
+
       
       - name: Fail me
-        # continue-on-error: true
+        continue-on-error: true
         id: stepfail
         run: |
           echo "runid=${{ toJson(github.run_number) }}" > $GITHUB_OUTPUT
@@ -22,12 +26,12 @@ jobs:
           exit 1
 
       - name: Even continue-on-error
-        if: ${{ failure() && steps.stepfail.outcome == 'failed' }}
+        if: ${{ steps.stepfail.outcome == 'failure' }}
         run: |
           echo "Step failed"
 
       - name: If failed
-        if: ${{ failure() && steps.stepfail.conclusion == 'failed' }}
+        if: ${{ steps.stepfail.conclusion == 'failure' }}
         run: |
           echo "Step failed"
 
